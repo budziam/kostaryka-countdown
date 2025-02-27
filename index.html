@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barcelona Countdown</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+  <style>
+      body {
+          background-color: #FFFCF9;
+      }
+
+      .barcelona-title {
+          color: #FF6978;
+      }
+
+      .barcelona-subtitle {
+          color: #6D435A;
+      }
+
+      .square {
+          border-radius: 2px;
+          height: 8px;
+          width: 8px;
+          background-color: #484D6D;
+          border: 1px solid #FFFCF9;
+          opacity: 1;
+          transition: all 5s ease-in-out;
+      }
+
+      .square:hover {
+          border-radius: 100px;
+          background-color: #FF6978;
+          border-color: #FF6978;
+          /*#B1EDE8;*/
+          transition: all 0s ease-in-out;
+      }
+
+      .next {
+          opacity: 0;
+          transition: opacity 60s linear;
+      }
+
+      .square-container {
+          display: flex;
+          flex-wrap: wrap-reverse;
+      }
+  </style>
+</head>
+<body>
+<section class="section">
+  <div class="container has-text-centered">
+    <h1 class="title barcelona-title">Kostaryka Wielkie Odliczanie</h1>
+    <h2 id="countdown" class="subtitle barcelona-subtitle"></h2>
+
+    <div id="square-container" class="square-container"></div>
+  </div>
+</section>
+
+<script>
+    function createSquares(quantity) {
+        return "<div class='square'></div>".repeat(quantity);
+    }
+
+    function removeSquare() {
+        const next = document.querySelector(".next:last-child");
+        if (next) {
+            next.remove();
+        }
+
+        const toBeNext = document.querySelector(".square:last-child");
+        if (toBeNext) {
+            toBeNext.classList.add("next");
+        }
+    }
+
+    function countdown(distance) {
+        const days = Math.floor(distance / (60 * 60 * 24));
+        const hours = Math.floor((distance % (60 * 60 * 24)) / (60 * 60));
+        const minutes = Math.floor((distance % (60 * 60)) / 60);
+        const seconds = Math.floor(distance % (60));
+
+        document.getElementById("countdown").innerHTML = (
+            days + "d " +
+            String(hours).padStart(2, "0") + "h " +
+            String(minutes).padStart(2, "0") + "m " +
+            String(seconds).padStart(2, "0") + "s "
+        );
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "EXPIRED";
+        }
+    }
+
+    function getRemainingSeconds() {
+        return Math.max(0, Math.floor((departureDate - new Date()) / 1000));
+    }
+
+    const departureDate = new Date("2025-03-21T06:40:00.000+01:00");
+    const remainingSquares = getRemainingSeconds() / 60;
+    const squareContainer = document.getElementById("square-container");
+    squareContainer.insertAdjacentHTML("beforeend", createSquares(remainingSquares));
+
+    countdown(getRemainingSeconds());
+    setTimeout(removeSquare, 500);
+    setInterval(removeSquare, 60000);
+    setInterval(() => countdown(getRemainingSeconds()), 1000);
+</script>
+</body>
+</html>
