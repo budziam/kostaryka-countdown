@@ -12,7 +12,7 @@
       }
 
       .barcelona-title {
-          color: #FF6978;
+          color: #2ECC71;
       }
 
       .barcelona-subtitle {
@@ -21,19 +21,14 @@
 
       .square {
           border-radius: 2px;
-          height: 8px;
-          width: 8px;
-          background-color: #484D6D;
-          border: 1px solid #FFFCF9;
+          font-size: 20px;
           opacity: 1;
-          transition: all 5s ease-in-out;
+          transition: all 15s ease-in-out;
       }
 
       .square:hover {
           border-radius: 100px;
-          background-color: #FF6978;
-          border-color: #FF6978;
-          /*#B1EDE8;*/
+          background-color: #2ECC71;
           transition: all 0s ease-in-out;
       }
 
@@ -50,7 +45,7 @@
 </head>
 <body>
 <section class="section">
-  <div class="container has-text-centered">
+  <div class="container is-fluid has-text-centered">
     <h1 class="title barcelona-title">Kostaryka Wielkie Odliczanie</h1>
     <h2 id="countdown" class="subtitle barcelona-subtitle"></h2>
 
@@ -60,7 +55,7 @@
 
 <script>
     function createSquares(quantity) {
-        return "<div class='square'></div>".repeat(quantity);
+        return "<div class='square'>🦥</div>".repeat(quantity);
     }
 
     function removeSquare() {
